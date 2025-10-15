@@ -61,7 +61,7 @@ void Assignment11(void)
 		
 		if (input_name == ".")
 		{
-			printf(products);
+			printf("%s",products->name);
 		}
 
 		if (input_name == "Á¾·á")
