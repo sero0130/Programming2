@@ -122,7 +122,7 @@ int loadFile(const char* filename, CONTACT contact[], int max)
 		return 0;
 	}
 
-	while ((count < max) && (fscanf(fp, "%s %s", contacts[count].name, contacts[count].phone) != 2))
+	while ((count < max) && (fscanf(fp, "%s %s", contacts[count].name, contacts[count].phone) == 2))
 	{
 		count++;
 	}
