@@ -100,7 +100,6 @@ int loadFile(const char * filename, CONTACT contact[], int max)
 	
 	int count = 0;
 	int j = 0;
-	CONTACT* contacts = &contact[j];
 
 	FILE* fp = fopen(filename, "r");
 	if (fp == NULL)
@@ -109,7 +108,7 @@ int loadFile(const char * filename, CONTACT contact[], int max)
 		return 0;
 	}
 
-	while ((count < max) && (fscanf(fp, "%s %s", contacts[count].name, contacts[count].phone) == 2))
+	while ((count < max) && (fscanf(fp, "%29s %29s", contact[count].name, contact[count].phone) == 2))
 	{
 		count++;
 	}
