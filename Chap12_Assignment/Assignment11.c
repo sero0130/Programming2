@@ -62,26 +62,36 @@ void assignment11(void)
 		return;
 	}
 
-	printf("%d개의 연락처를 로딩했습니다.", count);
-	int i = 0;
+	printf("%d개의 연락처를 로딩했습니다.\n", count);
+	
+	
 	while(1)
 	{
+		int found = 0;
 		printf("이름(.입력시 종료)");
 		scanf("%29s", name);
-		if (strcmp(((contacts + i)->name), name) == 0)
+
+		if (strcmp(".", name) == 0)
+			{
+				printf("종료합니다.");
+				break;
+			}
+		
+		for (int i = 0; i < count; i++)
 		{
-			printf("%s의 전화번호 %s로 전화를 겁니다...", (contacts + i)->name, (contacts + i)->phone);
+			if (strcmp(contacts[i].name, name) == 0)
+			{
+				printf("%s의 전화번호 %s로 전화를 겁니다...\n", contacts[i].name, contacts[i].phone);
+				found = 1;
+				break;
+			}
+			
 		}
-		else if (strcmp(".", name) == 0)
+
+		if (!found)
 		{
-			printf("종료합니다.");
-			break;
+			printf("없는 전화번호 입니다.\n");
 		}
-		else
-		{
-			printf("없는 전화번호 입니다.");
-		}
-		i++;
 	}
 
 	free(contacts);

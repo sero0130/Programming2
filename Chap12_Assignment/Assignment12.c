@@ -60,30 +60,39 @@ void assignment11(void)
 
 	if (count <= 0)
 	{
-		printf("연락처를 불러오지 못했습니다.");
+		printf("연락처를 불러오지 못했습니다.\n");
 		free(contacts);
 		return;
 	}
 
-	printf("%d개의 연락처를 로딩했습니다.", count);
-	int i = 0;
+	printf("%d개의 연락처를 로딩했습니다.\n", count);
+	
 	while (1)
 	{
+		int found = 0;
 		printf("이름(.입력시 종료)");
 		scanf("%29s", name);
-		if (strcmp(((contacts + i)->name), name) == 0)
-		{
-			printf("%s의 전화번호 %s로 전화를 겁니다...", (contacts + i)->name, (contacts + i)->phone);
-		}
-		else if (strcmp(".", name) == 0)
+		if (strcmp(".", name) == 0)
 		{
 			printf("종료합니다.");
 			printf("%d의 연락처를 저장했습니다.");
 			break;
 		}
-		else
+
+
+		for (int i = 0; i < count; i++)
 		{
-			printf("없는 전화번호 입니다.");
+			if (strcmp(contacts[i].name, name) == 0)
+			{
+				printf("%s의 전화번호 %s로 전화를 겁니다...\n", contacts[i].name, contacts[i].phone);
+				found = 1;
+				break;
+			}
+		}
+		
+		if(!found)
+		{
+			printf("없는 전화번호 입니다.\n");
 			printf("연락처를 등록하시겠습니까?(Y,N)");
 			scanf("%s", YN);
 			if (strcmp("Y", YN) == 0)
@@ -94,7 +103,6 @@ void assignment11(void)
 				count = loadFile(filename, contacts, MAX_CONTACT);
 			}
 		}
-		i++;
 	}
 
 	free(contacts);
@@ -113,7 +121,6 @@ int loadFile(const char* filename, CONTACT contact[], int max)
 
 	int count = 0;
 	int j = 0;
-	CONTACT* contacts = &contact[j];
 
 	FILE* fp = fopen(filename, "r");
 	if (fp == NULL)
@@ -122,7 +129,7 @@ int loadFile(const char* filename, CONTACT contact[], int max)
 		return 0;
 	}
 
-	while ((count < max) && (fscanf(fp, "%s %s", contacts[count].name, contacts[count].phone) == 2))
+	while ((count < max) && (fscanf(fp, "%s %s", contact[count].name, contact[count].phone) == 2))
 	{
 		count++;
 	}
